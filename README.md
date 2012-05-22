@@ -8,5 +8,6 @@ Following this guide: http://www.davidmarco.es/tutoriales/spring-mvc-sbs/
 To do:
 <ul>
   <li>Implementing unit test</li>
-  <li>Use a real data base</li>  
+  <li>Use a real data base</li>
+  <li>Same with annotations</li>
 </ul>
