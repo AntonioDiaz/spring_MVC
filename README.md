@@ -1,4 +1,14 @@
 spring_MVC
 ==========
 
-proyecto modelo Spring MVC
+Spring MVC Prototype 
+<br>
+Following this guide: http://www.davidmarco.es/tutoriales/spring-mvc-sbs/
+<br>
+To do:
+<ul>
+  <li>Implementing unit test</li>
+  <li>Use a real data base</li>
+  <li>Create same app with annotations</li>
+  <li>Add possibility to change language</li>
+</ul>
