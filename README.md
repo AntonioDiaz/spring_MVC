@@ -9,5 +9,6 @@ To do:
 <ul>
   <li>Implementing unit test</li>
   <li>Use a real data base</li>
-  <li>Same with annotations</li>
+  <li>Create same app with annotations</li>
+  <li>Add possibility to change language</li>
 </ul>
