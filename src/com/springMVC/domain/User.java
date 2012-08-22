@@ -15,7 +15,7 @@ public class User {
 		super();
 	}
 	/**
-	 * Instanciate a new user form a string with the format: name|surname|email|userName|password
+	 * Instanciate a new user form a string with the format: name|surname|email|userName|password.
 	 * @param userStr
 	 */
 	public User(String userStr){
