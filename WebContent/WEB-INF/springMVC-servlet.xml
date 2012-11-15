@@ -1,47 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- the application context definition for the springapp DispatcherServlet -->
-	
-	<bean id="userDaoId" class="com.springMVC.persistence.SimpleUserDAO">		
-		<property name="dataSourceFile" value="/WEB-INF/fakeDataBase/users.txt"/>
-    </bean>
-	
+
+	<bean id="userDaoId" class="com.springMVC.persistence.SimpleUserDAO">
+		<property name="dataSourceFile" value="/WEB-INF/fakeDataBase/users.txt" />
+	</bean>
+
 	<bean name="usersManager" class="com.springMVC.service.SimpleUsersManager">
 		<property name="userDao" ref="userDaoId"></property>
 	</bean>
-	
-	<bean name="/wellcome.htm" class="com.springMVC.controllers.WellcomeController"></bean>	
-	<bean name="/newUserSuccess.htm" class="com.springMVC.controllers.NewUserSuccessController"></bean>	
-	
-	<bean name="/startUserSession.htm" class="com.springMVC.controllers.LoginFormController">
-		<property name="sessionForm" value="true"/>
-		<property name="commandName" value="startUserSession"/>
-		<property name="commandClass" value="com.springMVC.service.LoginForm"/>
+
+	<bean id="wellcomeController" class="com.springMVC.controllers.WellcomeController"></bean>
+	<bean id="newUserSuccessController" class="com.springMVC.controllers.NewUserSuccessController"></bean>
+
+	<bean id="loginFormController" class="com.springMVC.controllers.LoginFormController">
+		<property name="sessionForm" value="true" />
+		<property name="commandName" value="startUserSession" />
+		<property name="commandClass" value="com.springMVC.service.LoginForm" />
 		<property name="validator">
-			<bean class="com.springMVC.service.LoginFormValidator"/>
+			<bean class="com.springMVC.service.LoginFormValidator" />
 		</property>
 		<property name="formView" value="login" />
 		<property name="successView" value="wellcome.htm" />
 		<property name="usersManager" ref="usersManager" />
 	</bean>
-	
-	<bean name="/newUser.htm" class="com.springMVC.controllers.NewUserFormController">
-		<property name="sessionForm" value="true"/>
-		<property name="commandName" value="newUser"/>
-		<property name="commandClass" value="com.springMVC.service.NewUserForm"/>
+
+	<bean id="newUserFormController" class="com.springMVC.controllers.NewUserFormController">
+		<property name="sessionForm" value="true" />
+		<property name="commandName" value="newUser" />
+		<property name="commandClass" value="com.springMVC.service.NewUserForm" />
 		<property name="validator">
-			<bean class="com.springMVC.service.NewUserFormValidator"/>
+			<bean class="com.springMVC.service.NewUserFormValidator" />
 		</property>
 		<property name="formView" value="newUser" />
 		<property name="successView" value="newUserSuccess.htm" />
 		<property name="usersManager" ref="usersManager" />
 	</bean>
-		
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="messages"></property>
+
+
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="es" />
+	</bean>
+	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<property name="paramName" value="language" />
+	</bean>
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="urlMap">
+			<map>
+				<entry key="/startUserSession.htm">
+					<ref bean="loginFormController" />
+				</entry>
+				<entry key="/wellcome.htm">
+					<ref bean="wellcomeController" />
+				</entry>
+				<entry key="/newUserSuccess.htm">
+					<ref bean="newUserSuccessController" />
+				</entry>
+				<entry key="/newUser.htm">
+					<ref bean="newUserFormController" />
+				</entry>
+			</map>
+		</property>
+		<property name="interceptors">
+			<list>
+				<ref bean="localeChangeInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:resources/messages" />
+		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>

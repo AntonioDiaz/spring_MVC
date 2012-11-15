@@ -14,7 +14,37 @@
 	</script>
 	</head>
 <body>
-	<h3><fmt:message key="login"></fmt:message></h3>
+	<table border="0" width="60%">
+		<tr>
+			<td width="60%">
+				<h3><fmt:message key="login"></fmt:message></h3>
+			</td>
+			<td>
+				[
+				<c:if test="${pageContext.response.locale=='en'}">
+					<span style="font-weight: bold;">en</span>
+				</c:if>
+				<c:if test="${pageContext.response.locale!='en'}">
+					<a href="?language=en">en</a>
+				</c:if>
+				|
+				<c:if test="${pageContext.response.locale=='es'}">
+					<span style="font-weight: bold;">es</span>
+				</c:if>
+				<c:if test="${pageContext.response.locale!='es'}">
+					<a href="?language=es">es</a>
+				</c:if>
+				|
+				<c:if test="${pageContext.response.locale=='ca'}">
+					<span style="font-weight: bold;">cat</span>
+				</c:if>
+				<c:if test="${pageContext.response.locale!='ca'}">
+					<a href="?language=ca">cat</a>
+				</c:if>
+				]
+			</td>
+		</tr>
+	</table>
 	<form:form method="post" commandName="startUserSession" modelAttribute="startUserSession" >
 		<table width="50%" bgcolor="white" border="0" cellpadding="3" cellspacing="0">
 			<tr>
@@ -48,12 +78,12 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td align="left" colspan="2">
-					<input type="submit" align="middle" value="<fmt:message key="button.new-user"/>" 
-						onclick="changeBehavior();return false;" style="width: 90px">
+					<input type="submit" align="middle" value='<fmt:message key="button.new-user"/>' onclick="changeBehavior();return false;" style='width: 90px'>
 				</td>
 			</tr>
 		</table>
 		<br>
 	</form:form>
+	<br>	
 </body>
 </html>
